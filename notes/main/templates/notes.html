@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="bg-body-tertiary p-5 rounded mt-3">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Note text</label>
+                <textarea class="form-control" id="content" rows="3" name="content" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Save Note</button>
+        </form>
+    </div>
+
+    {% for note in notes %}
+    <main class="container">
+        <div class="bg-body-tertiary p-5 rounded mt-3">
+            <h1>{{ note.title }}</h1>
+            <p class="lead"> {{ note.content }}</p>
+            <p class="lead"> {{ note.created }}</p>
+            <p class="lead"> {{ note.pk }} </p>
+            <a class="btn btn-lg btn-primary" href="note\{{ note.pk }}" role="button">View navbar docs »</a>
+        </div>
+    </main>
+</main>
+
+{% endfor %}
+{% endblock %}
